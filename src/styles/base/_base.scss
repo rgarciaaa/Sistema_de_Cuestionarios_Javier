@@ -1,0 +1,13 @@
+
+body {
+    font-family: 'KoHo', sans-serif;
+    font-weight: bold;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default;
+}

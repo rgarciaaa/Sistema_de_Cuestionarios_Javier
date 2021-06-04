@@ -1,0 +1,56 @@
+.cuestTable {
+    margin-bottom: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tablesContainer {
+    width: 90vw;
+    height: 60vh;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.allQuestions {
+    width: 43vw;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+.selectedQuestions {
+    width: 43vw;
+    overflow-y: scroll;
+}
+
+Table {
+    border-radius: 8px;
+}
+
+#uno {
+    width: 5vw;
+    background-color: transparent;
+    text-align: center;
+}
+
+#dos {
+    width: 38vw;
+    text-align: center;
+}
+
+#tres {
+    font-size: 12px;
+    text-align: justify;
+}
+
+#uno > button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+#uno > button > img {
+    width: 30px;
+    height: 30px;
+    color: #6C757D;
+}

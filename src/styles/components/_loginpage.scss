@@ -1,0 +1,85 @@
+.loginContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginImage {
+    margin-top: 3.5rem;
+}
+
+.loginForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: #E6E6FA;
+    padding: 2.5rem;
+    border-radius: .7rem;
+    box-shadow: 5px 5px 2px darken(#F6F8FA, 1);
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.loginInput {
+    border: .1rem solid rgb(34, 100, 112);
+    border-radius: .7rem;
+    width: 266px;
+    height: 30px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.loginInput:focus {
+    border: .1rem solid rgb(34, 100, 112);
+    box-shadow: 2px 2px 5px darken(#2EA44F, .7);
+    outline: none;
+}
+
+.loginInput:hover {
+    border: .1rem solid rgb(34, 100, 112);
+    box-shadow: 2px 2px 5px darkcyan;
+    outline: none;
+}
+
+.loginText {
+    text-align: left;
+}
+
+.loginTitle {
+    margin: 1rem;
+}
+
+.loginButton {
+    margin-top: 3rem;
+    width: 266px;
+    height: 35px;
+    margin-bottom: 1rem;
+    border: 0.1rem solid #2EA44F;
+    border-radius: .7rem;
+    background-image: linear-gradient(to right, #2EA44F, darken(#2EA44F, .5));
+    color: whitesmoke;
+    font-size: 1.4rem;
+}
+
+.loginButton:focus {
+    outline: none;
+}
+
+.loginButton:hover {
+    box-shadow: 3px 3px 5px gray;
+}
+
+.loginError {
+    text-align: center;
+    background-color: #eec0c8;
+    border: 0.5px solid #FF69B4;
+    border-radius: .7rem;
+    font-size: 1.4rem;
+    color: #452c63;
+    font-weight: bold;
+    font-size: 1.4rem;
+    width: 322px;
+    height: auto;
+}

@@ -1,0 +1,101 @@
+.sectionTitle {
+    padding-left: 15vw;
+}
+
+.sectionContainer {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.searchContainer {
+    margin-bottom: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.questionContainer {
+    margin: none;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 50vw;
+}
+
+.SContainer {
+    margin: none;
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 90vw;
+}
+
+.search {
+    width: 43vw;
+}
+
+.cuestContainer {
+    margin: none;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 90vw;
+    padding-left: 59px;
+}
+
+.labelText {
+    margin: none;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.labelText1 {
+    font-weight: bold;
+}
+
+.error {
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: rgba(245, 57, 57, 0.5);
+    border: 1px solid rgba(245, 57, 57, 0.5);
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+
+.succeed {
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: rgba(74, 247, 58, 0.5);
+    border: 1px solid rgba(74, 247, 58, 0.5);
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+
+.separador {
+    width: 5vw;
+}
+
+#datepicker { 
+    align-items: center;
+    height: 38px;
+    font-weight: bold;
+    margin-left: 0;
+    width: 100%;
+}
+
+.date {
+    width: 100%;
+}
+
