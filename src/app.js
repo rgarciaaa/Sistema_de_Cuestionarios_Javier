@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HeaderMaestro from './components/HeaderMaestro';
 import CreateQuest from './components/CreateQuest';
 import CreateCuest from './components/CreateCuest';
+import InscribeAlumno from './components/InscribeAlumno';
 import Footer from './components/Footer';
 import Login from './components/LoginPage';
 import 'react-dates/initialize';

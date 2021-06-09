@@ -81,23 +81,27 @@ app.get('/getCat', (req, res) => {
     })
 });
 
-app.post('/pullCuest', (req, res) => {
-    // Separamos el json en variables
-    const nombre = JSON.stringify(req.body.nombre);
-    const fecha = JSON.stringify(req.body.fecha);
-    const id_categoria = req.body.categoria;
+app.post('/saveCuest', (req, res) => {
+    // Separamos el JSON en cuestionario y preguntas
+    const {nombre, fecha, categoria}  = req.body.cuestionario;
+    const preguntas = req.body.preguntas;
     // Lanzamos el query a la base de datos para guardar el cuestionario
     connect.then((conn) => {
         // Guardamos el cuestionario
-        conn.query(`INSERT INTO cuestionario VALUES (NULL,${nombre},${fecha},${id_categoria});`)
-            .then((rows) => {
-                // Contestamos que se guardo correctamente
-                res.send({ succeed: true })
-            })
-            .catch((err) => {
-                // Contestamos que no se guardo correctamente
-                res.send({ succeed: false })
-            })
+        conn.query(`INSERT INTO cuestionario VALUES (NULL,${JSON.stringify(nombre)},${JSON.stringify(fecha)},${JSON.stringify(categoria)});`) 
+        .then((rows) => {
+            // Recuperamos el id del cuestionario creado
+            const cuestionarioID = rows.insertId;
+            // Guardamos las preguntas relacionadas al cuestionario
+            preguntas.forEach(pregunta => {
+                conn.query(`INSERT INTO cuest_pregunta VALUES (NULL,${JSON.stringify(cuestionarioID)},${JSON.stringify(pregunta.id)});`);
+            });
+            // Respondemos que las preguntas se guardaron con exito
+            res.send({ succeed: true })
+        }).catch(error => {
+            // Respondemos que las preguntas no se pudieron guardar
+            res.send({ succeed: false })
+        })
     })
 })
 
@@ -105,12 +109,12 @@ app.post('/pullQuest', (req, res) => {
     // Lanzamos el query a la base de datos para guardar la pregunta
     connect.then((conn) => {
         // Guardamos el cuestionario
-        conn.query(`INSERT INTO pregunta VALUES (NULL,${JSON.stringify(req.body.pregunta)},
-            ${JSON.stringify(req.body.respuestaA)},
-            ${JSON.stringify(req.body.respuestaB)}, 
-            ${JSON.stringify(req.body.respuestaC)}, 
-            ${JSON.stringify(req.body.respuestaD)},
-            ${JSON.stringify(req.body.respuestaE)}, 
+        conn.query(`INSERT INTO pregunta VALUES (NULL,${JSON.stringify(req.body.pregunta).toUpperCase()},
+            ${JSON.stringify(req.body.respuestaA).toUpperCase()},
+            ${JSON.stringify(req.body.respuestaB).toUpperCase()}, 
+            ${JSON.stringify(req.body.respuestaC).toUpperCase()}, 
+            ${JSON.stringify(req.body.respuestaD).toUpperCase()},
+            ${JSON.stringify(req.body.respuestaE).toUpperCase()}, 
             ${JSON.stringify(req.body.respuestaCorrecta)});`)
             .then((rows) => {
                 // Contestamos que se guardo correctamente
@@ -123,7 +127,69 @@ app.post('/pullQuest', (req, res) => {
     })
 })
 
+app.get('/getCuest', (req,res) => {
+    //Lanzamos el query a la base de datos para recuperar todos los cuestionarios
+    connect.then(conn => {
+        conn.query('SELECT cuestionario.id_cuestionario AS id, cuestionario.nom_cuestionario AS nombre, cuestionario.fec_elaboracion AS fecha, categoria.nom_categoria AS categoria FROM cuestionario JOIN categoria WHERE cuestionario.id_categoria = categoria.id_categoria;')
+            .then((rows) => {
+                // Guardamos los cuestionarios recuperados
+                const cuestionarios = rows.map(cuestionario => {
+                    return {id: cuestionario.id, nombre: cuestionario.nombre, fecha: cuestionario.fecha, categoria: cuestionario.categoria}   
+                })
+                // Regresamos los cuestionarios
+                res.send(cuestionarios);
+            })
+    })
+})
 
+app.get('/getStudents', (req, res) => {
+    //Lanzamos el query a la base de datos para recuperar todos los primeros 100 alumnos
+    connect.then(conn => {
+        conn.query('SELECT id_persona as id, nom_persona as nombre, app_persona as app, apm_persona as apm FROM alumno LIMIT 100;')
+            .then(rows => {
+                // Guardamos los alumnos recuperados
+                const alumnos = rows.map(alumno => {
+                    return {id: alumno.id, nombre: alumno.nombre, app: alumno.app, apm: alumno.apm}
+                })
+                // Regresamos los alumnos
+                res.send(alumnos)
+            })
+    })
+})
+
+app.post('/getEstudiantes', (req, res) => {
+
+    // Recuperamos el cuerpo de la peticion
+    const nombre = req.body.nombre;
+
+    // Lanzamos el query a la DB para recuperar las primeras 100 coincidencias
+    connect.then(conn => {
+        conn.query(`SELECT id_persona as id, nom_persona as nombre, app_persona as app, apm_persona as apm FROM alumno WHERE CONCAT(nom_persona, ' ', app_persona, ' ', apm_persona) LIKE '%${nombre}%' LIMIT 100;`)
+            .then(rows => {
+                // Empaquetamos los resultados en un JSON
+                const alumnos = rows.map(alumno => {
+                    return {...alumno}
+                })
+                // Regresamos los alumnos
+                res.send(alumnos)
+            })
+    })
+})
+
+app.post('/saveEstudiantesInscritos', (req, res) => {
+    
+    // Recuperamos el cuerpo de la peticion
+    const {cuestionario, alumnos, fecha} = req.body;
+    
+    // Lanzamos el query para inscribir a los estudiantes al cuestionario
+    connect.then(conn => {
+        // Inscribe a cada alumno al cuestionario seleccionado
+        alumnos.forEach(alumno => {
+            conn.query(`INSERT INTO ins_per_cuest VALUES(null, ${alumno.id}, ${cuestionario.id}, ${JSON.stringify(fecha)}, null);`)
+        });
+        res.send({ succeed: true })
+    })
+});
 
 app.listen(9000, () => {
     console.log(chalk.bgGreen.black('server is up'));

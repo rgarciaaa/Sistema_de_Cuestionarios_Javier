@@ -54,3 +54,20 @@ Table {
     height: 30px;
     color: #6C757D;
 }
+
+.botonRegistro {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.errorContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.errContainer {
+    margin-bottom: 30px;
+    width: 50vw;
+}

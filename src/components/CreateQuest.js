@@ -76,18 +76,18 @@ class CreateQuest extends React.Component {
             }).then(res => res.json())
                 .catch(error => {
                     // Si ocurrio un error en el servidor lo comunicamos 
-                    this.setState(() => ({ class: 'error', mensaje: 'Error en el servidor, intente de nuevo', disabled: true }))
+                    this.setState(() => ({ clase: 'error', mensaje: 'Error en el servidor, intente de nuevo', disabled: true }))
                     setTimeout(() => {
-                        this.setState(() => ({ class: undefined, mensaje: undefined, disabled: false }))
+                        this.setState(() => ({ clase: undefined, mensaje: undefined, disabled: false }))
                     }, 3000)
                 })
                 .then(response => {
                     // Si existe una respuesta lo comunicamos
                     if (response) {
                         // Comunicamos que se guardo correctamente
-                        this.setState(() => ({ class: 'succeed', mensaje: 'Pregunta guardada correctamente', disabled: true }))
+                        this.setState(() => ({ clase: 'succeed', mensaje: 'Pregunta guardada correctamente', disabled: true }))
                         setTimeout(() => {
-                            this.setState(() => ({ class: undefined, mensaje: undefined, disabled: false }))
+                            this.setState(() => ({ clase: undefined, mensaje: undefined, disabled: false }))
                         }, 3000);
                         // Limpiamos los campos
                         this.setState(() => ({
@@ -101,9 +101,9 @@ class CreateQuest extends React.Component {
                     } else {
                         // Comunicamos que no se guardo correctamente
                         // Si ocurrio un error en el servidor lo comunicamos 
-                        this.setState(() => ({ class: 'error', mensaje: 'Error en el servidor, intente de nuevo', disabled: true }))
+                        this.setState(() => ({ clase: 'error', mensaje: 'Error en el servidor, intente de nuevo', disabled: true }))
                         setTimeout(() => {
-                            this.setState(() => ({ class: undefined, mensaje: undefined, disabled: false }))
+                            this.setState(() => ({ clase: undefined, mensaje: undefined, disabled: false }))
                         }, 3000)
                     }
 
@@ -111,9 +111,9 @@ class CreateQuest extends React.Component {
                 });
         } else {
             // Si no estan completos los datos mostramos un mensaje de advertencia al usuario
-            this.setState(() => ({ class: 'error', mensaje: 'Por favor complete los campos faltantes', disabled: true }))
+            this.setState(() => ({ clase: 'error', mensaje: 'Por favor complete los campos faltantes', disabled: true }))
             setTimeout(() => {
-                this.setState(() => ({ class: undefined, mensaje: undefined, disabled: false }))
+                this.setState(() => ({ clase: undefined, mensaje: undefined, disabled: false }))
             }, 3000)
         }
     }
@@ -131,7 +131,7 @@ class CreateQuest extends React.Component {
                         {
                             this.state.mensaje ? (
                                 <InputGroup size="md" className='labelText'>
-                                    <InputGroup.Text id="inputGroup-sizing-lg" className={this.state.class}>{this.state.mensaje}</InputGroup.Text>
+                                    <InputGroup.Text id="inputGroup-sizing-lg" className={this.state.clase}>{this.state.mensaje}</InputGroup.Text>
                                 </InputGroup>
                             ) : <p></p>
                         }
